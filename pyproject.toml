@@ -1,0 +1,10 @@
+[project]
+name = "things-collector"
+version = "0.1.0"
+description = "Parses data from LoRaWAN Things Network webhook uplink messages and then stores that data in a MotherDuck database."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "concurrent-log-handler>=0.9.25",
+    "python-dateutil>=2.9.0.post0",
+]
