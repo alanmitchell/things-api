@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+import random
 
 import fastapi
 from concurrent_log_handler import ConcurrentTimedRotatingFileHandler
@@ -42,6 +43,9 @@ def setup_uplink_gateway_logger():
     logger.addHandler(handler)
 
     return logger
+
+
+source = random.choice(['AHFC', 'ANTHC', 'AN'])
 
 
 # Set up the gateway uplink message logger.

@@ -1,18 +1,16 @@
-import random
-
 from dateutil.parser import parse
 
 
-def parse_and_log(things_uplink_message):
-    """Parses the desirable information from a Things v3 JSON uplink message and records
-    in the log file.
+def parse_uplink_gateway_info(things_uplink_message: dict, source: str):
+    """Parses the desirable gateway information from a Things v3 JSON uplink message
+    and returns comma-separated records for each gateway reached.
     """
     rec = things_uplink_message
     gtw_recs = []  # holds gateway records
 
     dev_id = rec["end_device_ids"]["device_id"]
     dev_eui = rec["end_device_ids"]["dev_eui"]
-    ctr = rec["uplink_message"]["f_cnt"]
+    ctr = rec["uplink_message"]["f_cnt"]              # frame counter
     ts = int(parse(rec["received_at"]).timestamp())
     dr = rec["uplink_message"]["settings"]["data_rate"]["lora"]
     data_rate = f"SF{dr['spreading_factor']}BW{int(dr['bandwidth'] / 1000)}"
@@ -26,8 +24,10 @@ def parse_and_log(things_uplink_message):
         r["rssi"] = gtw["rssi"]
         gtw_recs.append(r)
 
-    source = random.choice(['AHFC', 'ANTHC', 'AN'])
+    final_recs = []
     for gtw in gtw_recs:
         r = f"{source},{ts},{dev_id},{dev_eui},{ctr},{gtw['gtw_id']},{gtw['gtw_eui']},{gtw['snr']},{gtw['rssi']},{data_rate}"
-        logger.info(r)
+        final_recs.append(r)
+
+    return final_recs
 
