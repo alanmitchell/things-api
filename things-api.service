@@ -8,7 +8,10 @@ Group=www-data
 WorkingDirectory=/home/alan/things-api
 
 # Use the full path to your uvicorn executable in your virtual environment
-ExecStart=/home/alan/things-api/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+# Consider adding multiple workers (and maybe using Gunicorn for worker
+# management) if response time becomes slow. See ChatGPT discussion on this
+# topic.
+ExecStart=/home/alan/things-api/.venv/bin/uvicorn main:app --uds things-api.sock
 
 # Restart the service automatically if it crashes
 Restart=always
