@@ -1,3 +1,4 @@
+settings.py
 data/*.log.*
 data/*.log
 
