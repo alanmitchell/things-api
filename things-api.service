@@ -1,0 +1,18 @@
+[Unit]
+Description=Things API
+After=network.target
+
+[Service]
+User=alan
+Group=www-data
+WorkingDirectory=/home/alan/things-api
+
+# Use the full path to your uvicorn executable in your virtual environment
+ExecStart=/home/alan/things-api/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 9000
+
+# Restart the service automatically if it crashes
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
