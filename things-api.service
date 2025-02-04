@@ -3,15 +3,15 @@ Description=Things API
 After=network.target
 
 [Service]
-User=alan
+User=bmon
 Group=www-data
-WorkingDirectory=/home/alan/things-api
+WorkingDirectory=/home/bmon/things-api
 
 # Use the full path to your uvicorn executable in your virtual environment
 # Consider adding multiple workers (and maybe using Gunicorn for worker
 # management) if response time becomes slow. See ChatGPT discussion on this
 # topic.
-ExecStart=/home/alan/things-api/.venv/bin/uvicorn main:app --uds things-api.sock
+ExecStart=/home/bmon/things-api/.venv/bin/uvicorn main:app --uds things-api.sock
 
 # Restart the service automatically if it crashes
 Restart=always
