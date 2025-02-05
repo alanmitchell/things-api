@@ -1,7 +1,7 @@
 settings.py
 gtw-log/*
 gtw-log/*.log
-gtw-log/.__gtw.lock
+*.lock
 random
 secrets
 string
