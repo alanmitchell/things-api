@@ -16,3 +16,8 @@ UPLINK_LOG_FILE_ROTATION_TIME = 10
 
 # Number of log file backups to keep
 UPLINK_LOG_FILE_BACKUP_COUNT = 5
+
+# ----------  Mother Duck Database Info
+
+# Access token
+MD_ACCESS_TOKEN = "Access Token goes Here"

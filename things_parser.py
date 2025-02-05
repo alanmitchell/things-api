@@ -31,3 +31,18 @@ def parse_uplink_gateway_info(things_uplink_message: dict, source: str):
 
     return final_recs
 
+def uplink_gateway_columns():
+    """Returns the column names for the data returned by "parse_uplink_gateway_info"
+    """
+    return [
+        "source",
+        "ts",
+        "device_id",
+        "device_eui",
+        "frame_counter",
+        "gateway_id",
+        "gateway_eui"
+        "signal_snr",
+        "signal_rssi",
+        "data_rate"
+    ]
