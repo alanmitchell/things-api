@@ -41,7 +41,7 @@ def uplink_gateway_columns():
         "device_eui",
         "frame_counter",
         "gateway_id",
-        "gateway_eui"
+        "gateway_eui",
         "signal_snr",
         "signal_rssi",
         "data_rate"
