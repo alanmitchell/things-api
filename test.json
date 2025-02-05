@@ -1,13 +1,13 @@
 {
     "@type": "type.googleapis.com/ttn.lorawan.v3.ApplicationUp",
     "end_device_ids": {
-      "device_id": "e5btu-scott-hp1-0141c",
+      "device_id": "e5btu-scott-hp1-0923c",
       "application_ids": {
-        "application_id": "an-bmon"
+        "application_id": "an-bmon-app"
       },
-      "dev_eui": "2CF7F1202490141C",
+      "dev_eui": "2CF7F1123490141C",
       "join_eui": "0000000000000001",
-      "dev_addr": "260C8162"
+      "dev_addr": "260C9862"
     },
     "correlation_ids": [
       "gs:uplink:01JJZP1BTKD96N1Y3AB7842GMR"
@@ -21,8 +21,8 @@
       "rx_metadata": [
         {
           "gateway_ids": {
-            "gateway_id": "scott-a840411ed9004150",
-            "eui": "A840411ED9004150"
+            "gateway_id": "scott-a840411ed8994150",
+            "eui": "A840411ED9004230"
           },
           "timestamp": 2116598235,
           "rssi": -46,

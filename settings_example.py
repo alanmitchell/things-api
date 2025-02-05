@@ -2,6 +2,12 @@
 the application. Do not include the actual "settings.py" file in source control.
 """
 
+# Valid API Keys and the corresponding source of the request.
+API_KEYS = {
+    "ABC": "someone",
+    "CDE": "somebody else"
+}
+
 # ----- Settings for logging Things Network uplink posts.
 
 # Number of minutes for log file rotation, which then causes the

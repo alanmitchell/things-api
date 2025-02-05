@@ -1,6 +1,10 @@
 settings.py
-data/*.log.*
-data/*.log
+gtw-log/*
+gtw-log/*.log
+gtw-log/.__gtw.lock
+random
+secrets
+string
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
