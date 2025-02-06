@@ -1,4 +1,7 @@
+#!/usr/bin/env python
+
 from pathlib import Path
+from time import time
 
 import duckdb
 import pandas as pd
@@ -13,6 +16,13 @@ column_names = things_parser.uplink_gateway_columns()
 log_dir = Path(__file__).parent / "gtw-log"
 for fpath in log_dir.glob("gtw.log.*"):
     print(fpath)
+    st = time()
     df = pd.read_csv(fpath, names=column_names, header=None)
     df["ts"] = pd.to_datetime(df["ts"], unit="s")
-    df.to_sql("gtw", conn, if_exists="append", index=False)
+    df.to_parquet('gtw-log/temp.parquet')
+    conn.execute('''
+COPY gtw 
+FROM 'gtw-log/temp.parquet'
+(FORMAT 'parquet');
+''')
+    print(time() - st)
