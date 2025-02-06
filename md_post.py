@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from pathlib import Path
-from time import time
 
 import duckdb
 import pandas as pd
@@ -14,15 +13,19 @@ conn = duckdb.connect("md:things", config={"motherduck_token": settings.MD_ACCES
 
 column_names = things_parser.uplink_gateway_columns()
 log_dir = Path(__file__).parent / "gtw-log"
+parquet_path = log_dir / 'temp.parquet'
 for fpath in log_dir.glob("gtw.log.*"):
-    print(fpath)
-    st = time()
-    df = pd.read_csv(fpath, names=column_names, header=None)
-    df["ts"] = pd.to_datetime(df["ts"], unit="s")
-    df.to_parquet('gtw-log/temp.parquet')
-    conn.execute('''
-COPY gtw 
-FROM 'gtw-log/temp.parquet'
-(FORMAT 'parquet');
-''')
-    print(time() - st)
+    try:
+        print(fpath)
+        df = pd.read_csv(fpath, names=column_names, header=None)
+        df["ts"] = pd.to_datetime(df["ts"], unit="s")
+        df.to_parquet(log_dir / 'temp.parquet')
+        conn.execute(f'''
+            COPY gtw 
+            FROM '{parquet_path}'
+            (FORMAT 'parquet');
+            ''')
+        fpath.unlink()
+        
+    except:
+        print(f"Error processing {fpath}")
