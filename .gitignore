@@ -1,5 +1,5 @@
 settings.py
-db/things.db            # DuckDB database files
+db/*            # DuckDB database files
 gtw-log/*
 gtw-log/*.log
 /gtw-log/.__gtw.lock
