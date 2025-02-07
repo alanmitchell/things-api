@@ -1,7 +1,12 @@
+"""Main script for the Things API application. Receives and processes
+HTTP requests. Starts a thread that stores Things message data into a
+database.
+"""
 import logging
 from pathlib import Path
-import random
 from typing import Any
+import time
+import threading
 
 from fastapi import FastAPI, Body, Depends, HTTPException, Security
 from fastapi.security.api_key import APIKeyHeader
@@ -10,6 +15,7 @@ from concurrent_log_handler import ConcurrentTimedRotatingFileHandler
 
 import settings
 import things_parser
+import uplink_to_db
 
 
 # Create a security dependency that looks for the API key in the header.
@@ -34,7 +40,7 @@ async def validate_api_key(api_key: str = Security(api_key_header)):
 
 @app.get('/')
 async def index():
-    return {"message": "Hello, World!"}
+    return {"message": "Things API Home page."}
 
 @app.post('/store-uplink')
 async def store_uplink(payload: Any = Body(...), source: str = Depends(validate_api_key)):
@@ -87,7 +93,25 @@ def setup_uplink_gateway_logger():
 
     return logger
 
+def periodically_write_to_db():
+    """Start a thread to check whether there are Things message log files 
+    ready to be written to the database
+    """
+    while True:
+        try:
+            uplink_to_db.check_for_complete_log_files()
+            time.sleep(60)    # check every minute
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            time.sleep(10)
+
 
 # Set up the gateway uplink message logger.
 gtw_logger = setup_uplink_gateway_logger()
+
+# start a thread to periodically check for complete Things message log 
+# files that need to be written to the database.
+thread = threading.Thread(target=periodically_write_to_db)
+thread.daemon = True  # Daemon thread will exit when the main program exits
+thread.start()
 
