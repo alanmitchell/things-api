@@ -1,5 +1,6 @@
 settings.py
-/db/            # DuckDB database files
+/db/things.db           
+/db/bak/
 /gtw-log/*.log*
 /gtw-log/*.parquet
 /gtw-log/.__gtw.lock
