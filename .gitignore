@@ -1,7 +1,7 @@
 settings.py
-db/*            # DuckDB database files
-gtw-log/*
-gtw-log/*.log
+/db/            # DuckDB database files
+/gtw-log/*.log*
+/gtw-log/*.parquet
 /gtw-log/.__gtw.lock
 random
 secrets
