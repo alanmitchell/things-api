@@ -111,7 +111,6 @@ gtw_logger = setup_uplink_gateway_logger()
 
 # start a thread to periodically check for complete Things message log 
 # files that need to be written to the database.
-thread = threading.Thread(target=periodically_write_to_db)
-thread.daemon = True  # Daemon thread will exit when the main program exits
+thread = threading.Thread(target=periodically_write_to_db, daemon=True)
 thread.start()
 
